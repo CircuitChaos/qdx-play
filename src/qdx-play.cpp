@@ -70,7 +70,7 @@ static bool processBuffers(const std::vector<double> &in, std::vector<double> &o
 				// this is too rapid
 				// gain = 0.85 / absSample;
 				gain /= 1.1;
-				//printf("Decreasing gain to %.2f to prevent clipping\n", gain);
+				// printf("Decreasing gain to %.2f to prevent clipping\n", gain);
 				return false;
 			}
 			else
@@ -80,15 +80,18 @@ static bool processBuffers(const std::vector<double> &in, std::vector<double> &o
 		out[i] = gainSample;
 	}
 
-	//printf("Input signal level: %.2f%%, gain %.2f, output signal level: %.2f%%\n",
-	//	maxOrigLevel * 100,
-	//	gain,
-	//	maxGainedLevel * 100);
+	// printf("Input signal level: %.2f%%, gain %.2f, output signal level: %.2f%%\n",
+	// 	maxOrigLevel * 100,
+	// 	gain,
+	// 	maxGainedLevel * 100);
 
-	if (autoGain && maxGainedLevel < .7)
+	if (autoGain)
 	{
-		gain *= 1.1;
-		//printf("Increasing gain to %.2f because output signal level is < 70%%\n", gain);
+		if (maxGainedLevel < .1)
+			gain *= 9.5;
+		else if (maxGainedLevel < .7)
+			gain *= 1.1;
+		// printf("Increasing gain to %.2f because output signal level is < 70%%\n", gain);
 	}
 
 	printf("Input level: %.3f%%, gain: %.3f, output level: %.3f%%      \r",
