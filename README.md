@@ -50,6 +50,14 @@ Recognized command-line options:
 
 Note that gain is only used to amplify audio from the QDX before sending it to the sound card. **qdx-play** doesn't touch the CAT interface of the radio. If you want to set gain of the QDX itself, use **rigctl** or another program.
 
+## How to tune
+
+It's not a part of **qdx-play**, but you can install package **libhamlib-utils** and use **rigctl** to control the rig.
+
+Working example to set frequency to 7074 kHz:
+
+`rigctl -m $(rigctl -l|grep TS-480|awk '{print $1}') -r /dev/ttyACM0 F 7074000`
+
 ## TODO (and call for volunteers!)
 
 What's left to be done:
